@@ -1,4 +1,4 @@
-## Lab Session #03
+## Lab Session #02
 
 Students:
 
