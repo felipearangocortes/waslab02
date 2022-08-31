@@ -1,4 +1,4 @@
-var baseURI = "http://localhost:8080/waslab03";
+var baseURI = "http://localhost:8080/waslab02";
 var tweetsURI = baseURI+"/tweets";
 
 var req;
@@ -30,7 +30,7 @@ String.prototype.format = function() {
 function likeHandler(tweetID) {
 	var target = 'tweet_' + tweetID;
 	var uri = tweetsURI+ "/" + tweetID +"/likes";
-	// e.g. to like tweet #6 we call http://localhost:8080/waslab03/tweets/6/like
+	// e.g. to like tweet #6 we call http://localhost:8080/waslab02/tweets/6/like
 
 	req = new XMLHttpRequest();
 	req.open('POST', uri, /*async*/true);

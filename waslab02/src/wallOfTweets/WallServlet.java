@@ -19,10 +19,10 @@ import com.google.appengine.repackaged.org.json.JSONObject;
 @WebServlet(urlPatterns = {"/tweets", "/tweets/*"})
 public class WallServlet extends HttpServlet {
 
-	private String TWEETS_URI = "/waslab03/tweets/";
+	private String TWEETS_URI = "/waslab02/tweets/";
 
 	@Override
-	// Implements GET http://localhost:8080/waslab03/tweets
+	// Implements GET http://localhost:8080/waslab02/tweets
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
@@ -39,21 +39,21 @@ public class WallServlet extends HttpServlet {
 	}
 
 	@Override
-	// Implements POST http://localhost:8080/waslab03/tweets/:id/likes
-	//        and POST http://localhost:8080/waslab03/tweets
+	// Implements POST http://localhost:8080/waslab02/tweets/:id/likes
+	//        and POST http://localhost:8080/waslab02/tweets
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
 		String uri = req.getRequestURI();
 		int lastIndex = uri.lastIndexOf("/likes");
 		if (lastIndex > -1) {  // uri ends with "/likes"
-			// Implements POST http://localhost:8080/waslab03/tweets/:id/likes
+			// Implements POST http://localhost:8080/waslab02/tweets/:id/likes
 			long id = Long.valueOf(uri.substring(TWEETS_URI.length(),lastIndex));		
 			resp.setContentType("text/plain");
 			resp.getWriter().println(Database.likeTweet(id));
 		}
 		else { 
-			// Implements POST http://localhost:8080/waslab03/tweets
+			// Implements POST http://localhost:8080/waslab02/tweets
 			int max_length_of_data = req.getContentLength();
 			byte[] httpInData = new byte[max_length_of_data];
 			ServletInputStream  httpIn  = req.getInputStream();
@@ -67,7 +67,7 @@ public class WallServlet extends HttpServlet {
 	}
 	
 	@Override
-	// Implements DELETE http://localhost:8080/waslab03/tweets/:id
+	// Implements DELETE http://localhost:8080/waslab02/tweets/:id
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 
