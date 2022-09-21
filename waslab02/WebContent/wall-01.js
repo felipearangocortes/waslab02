@@ -45,9 +45,19 @@ function likeHandler(tweetID) {
 function deleteHandler(tweetID) {
 	/*
 
-	 * TASK #4 
+	 * TASK #4 */
+	 req = new XMLHttpRequest();
+	req.open('delete', tweetsURI + "/" + tweetID, /*async*/true);
+	req.onload = function() {
+		if ( req.status == 200) {
+			var element = document.getElementById("tweet_" + tweetID);
+			//element.parentNode.removeChild(element);
+			element.remove(element);
+		}
+	};
+	req.send(/*no params*/null);
 
-	 */	
+	 
 }
 
 function getTweetHTML(tweet, action) {  // action :== "like" xor "delete"
@@ -65,7 +75,7 @@ function getTweets() {
 			
 			var tweet_list = JSON.parse(req.responseText);
 			for (tt of tweet_list) {
-				document.getElementById("tweet_list").innerHTML += getTweetHTML(tt, "like");
+				document.getElementById("tweet_list").innerHTML += getTweetHTML(tt, "delete");
 			}
 		}
 	};
@@ -84,11 +94,11 @@ function tweetHandler() {
 	req = new XMLHttpRequest();
 		req.open('POST', tweetsURI, /*async*/true);
 		req.onreadystatechange = function() {
-			if (req.readyState == 4 && req.status == 200) {
+			if (req.status == 200) {
 				var tweet = req.responseText;
 				var nt = JSON.parse(tweet);
 				var currentHTML = document.getElementById("tweet_list").innerHTML;
-				document.getElementById("tweet_list").innerHTML = getTweetHTML(nt, "Delete") + currentHTML;
+				document.getElementById("tweet_list").innerHTML = getTweetHTML(nt, "delete") + currentHTML;
 			}
 		};
 		req.setRequestHeader("Content-Type","application/json");

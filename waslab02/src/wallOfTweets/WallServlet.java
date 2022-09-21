@@ -83,7 +83,16 @@ public class WallServlet extends HttpServlet {
 	public void doDelete(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 
-		throw new ServletException("DELETE not yet implemented");
+		//throw new ServletException("DELETE not yet implemented");
+		String uri = req.getRequestURI();
+		int lastIndex = uri.lastIndexOf("/");
+		if (lastIndex > -1) {
+			long id = Long.valueOf(uri.substring(lastIndex+1,uri.length()));		
+			boolean borrat = Database.deleteTweet(id);
+			if (!borrat) throw new ServletException("ERROR.");
+		}
+		else  throw new ServletException("ERROR");
+
 	}
 
 }
