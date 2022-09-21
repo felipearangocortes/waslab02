@@ -62,11 +62,11 @@ function getTweets() {
 	req.open("GET", tweetsURI, true); 
 	req.onload = function() {
 		if (req.status == 200) { // 200 OK
-			var tweet_list = req.responseText;
-			/*
-			 * TASK #2 -->
-			 */
-			document.getElementById("tweet_list").innerHTML = tweet_list;
+			
+			var tweet_list = JSON.parse(req.responseText);
+			for (tt of tweet_list) {
+				document.getElementById("tweet_list").innerHTML += getTweetHTML(tt, "like");
+			}
 		}
 	};
 	req.send(null); 
