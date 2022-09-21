@@ -79,9 +79,26 @@ function tweetHandler() {
 	/*
 	 * TASK #3 -->
 	 */
-	var mes1 = "Someone ({0}) wants to insert a new tweet ('{1}'),\n but this feature is not implemented yet!";
-	alert(mes1.format(author, text));
-
+	//var mes1 = "Someone ({0}) wants to insert a new tweet ('{1}'),\n but this feature is not implemented yet!";
+	//alert(mes1.format(author, text));
+	req = new XMLHttpRequest();
+		req.open('POST', tweetsURI, /*async*/true);
+		req.onreadystatechange = function() {
+			if (req.readyState == 4 && req.status == 200) {
+				var tweet = req.responseText;
+				var nt = JSON.parse(tweet);
+				var currentHTML = document.getElementById("tweet_list").innerHTML;
+				document.getElementById("tweet_list").innerHTML = getTweetHTML(nt, "Delete") + currentHTML;
+			}
+		};
+		req.setRequestHeader("Content-Type","application/json");
+		var tweet = JSON.stringify(
+				{
+					author: author,
+					text: text
+				}
+		);
+		req.send(tweet);
 	// clear form fields
 	document.getElementById("tweet_author").value = "";
 	document.getElementById("tweet_text").value = "";
